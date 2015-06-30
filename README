@@ -1,2 +1,14 @@
-C program to read a line.
-SPS, 26 June 2015
+# C source code of a Linux Command Line Interpretor.
+
+Supported:
+----------
+1. I/O redirection
+2. Pipes
+
+Not supported:
+-------------
+1. TAB completion
+2. History
+3. Others
+
+Date: SPS, 29 June 2015
