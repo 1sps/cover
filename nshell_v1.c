@@ -3,8 +3,8 @@
   Last modified: sps, 6-29-2015
 */
 /*
-  Source code of a command line interpreter.
-  ------------------------------------------
+  Code of a command line interpreter.
+  ----
 */
 /*Headers*/
 #include<stdio.h>
