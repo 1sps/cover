@@ -3,8 +3,8 @@
   Last modified: sps, 6-29-2015
 */
 /*
-  Code of a command line interpreter.
-  ----
+  Source code of a command line interpreter.
+  ------------------------------------------
 */
 /*Headers*/
 #include<stdio.h>
@@ -121,27 +121,18 @@ void shell(void)
 			}
 			if(command.background ==1)
 			{
-				if(previous_command_background == 1)		
-				{
-					for(i=0; i<previous_command_subcommands; i++)	
-						wait(NULL);
-				}
 				printf("[%d]\n", child_pid_arr[command.num_sub_commands-1]);
 				previous_command_background = 1;
 				previous_command_subcommands = command.num_sub_commands;
 			}
 			else if(command.background == 0)
 			{
-				if(previous_command_background == 1)
-				{
-					for(i=0; i<previous_command_subcommands; i++)	
-						wait(NULL);
-				}
+				int status;
 				previous_command_background = 0;
 				previous_command_subcommands = 0;
 				for(i=0; i<command.num_sub_commands; i++)
 				{
-					wait(NULL);
+					waitpid(child_pid_arr[i], &status, WUNTRACED | WCONTINUED);
 				}
 			}
 		}
@@ -158,25 +149,17 @@ void shell(void)
 			{
 				if(command.background == 1)
 				{
-					if(previous_command_background == 1)		
-					{
-						for(i=0; i<previous_command_subcommands; i++)	
-							wait(NULL);
-					}
 					printf("[%d]\n", child_pid);
-					previous_command_background = 1;
-					previous_command_subcommands = command.num_sub_commands;
+					//previous_command_background = 1;
+					//previous_command_subcommands = command.num_sub_commands;
 				}
 				else if(command.background == 0)
 				{
-					if(previous_command_background == 1)		
-					{
-						for(i=0; i<previous_command_subcommands; i++)	
-							wait(NULL);
-					}
+					int status;
 					previous_command_background = 0;
 					previous_command_subcommands = 0;
-					wait(NULL);
+					//wait(NULL);
+					waitpid(child_pid, &status, WUNTRACED | WCONTINUED);
 				}
 			}
 		}
