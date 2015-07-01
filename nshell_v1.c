@@ -116,24 +116,18 @@ void shell(void)
 			}
 			/*If background operator given*/
 			if(command.background ==1)
-			{
 				printf("[%d]\n", child_pid_arr[command.num_sub_commands-1]);
-			}
-			/*If background operator not given*/
+			/*Else if background operator not given*/
 			else if(command.background == 0)
 			{
 				int status;
 				for(i=0; i<command.num_sub_commands; i++)
-				{
 					waitpid(child_pid_arr[i], &status, WUNTRACED | WCONTINUED);
-				}
 			}
 		}
 		/*If 0 subcommand, i.e. user just pressed 'Enter'*/
 		else if(command.num_sub_commands == 0)
-		{
 			continue;	
-		}
 	}
 	/*Shell complete*/
 	return;
@@ -191,18 +185,14 @@ void ReadCommand(char *s, struct Command *command)
 		else
 			sub_command_current = strtok(NULL, "|");
 		if(sub_command_current != NULL)	
-		{
 			command->sub_commands[i].line = strdup(sub_command_current);
-		}
 		else
 			break;
 	}
 	command->num_sub_commands = i;
 	/*Call read_args() to get the tokens for each sub-command*/
 	for(i=0; i<command->num_sub_commands; i++)
-	{
 		read_args(command->sub_commands[i].line, command->sub_commands[i].argv, MAX_ARGS);
-	}
 	return;
 }
 /*Print the command (all subcommands)*//*For debugging*/
@@ -342,4 +332,4 @@ void child_do_work(int i, struct Command *command, int *pipe_fds)
 		}
 	return;
 }
-/*---End, line no: 345---*/
+/*---End, line no: 335---*/
